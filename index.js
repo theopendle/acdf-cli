@@ -37,11 +37,9 @@ inquirer
             return;
         }
 
-        console.log(JSON.stringify(answers, null, 4))
-
         console.log(chalk.blue("Generating project..."));
-        filesystem.createDirectoryContents(WORKING_DIR, TEMPLATE_DIR);
-        filesystem.createInstanceConfFolders(WORKING_DIR, answers)
+
+        filesystem.createDirectoryContents(WORKING_DIR, TEMPLATE_DIR, answers);
     });
 
 
