@@ -21,6 +21,5 @@ module.exports = {
         colors: {
             STRING_KEY: 'green',
             STRING_LITERAL: 'white',
-            NUMBER_LITERAL: 'blue'
-        }}
+            NUMBER_LITERAL: 'blue'}}
 }
