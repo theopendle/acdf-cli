@@ -18,5 +18,20 @@
         "inquirer": "^8.2.0",
         "json-colorizer": "^2.2.2",
         "ncp": "^2.0.0"
+    },
+    "devDependencies": {
+        "husky": "^7.0.4",
+        "lint-staged": "^11.2.6",
+        "prettier": "^2.4.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,jsx}": [
+            "prettier --write"
+        ]
     }
 }
