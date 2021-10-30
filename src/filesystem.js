@@ -7,6 +7,7 @@ const ncp = require('ncp').ncp;
 createInstanceConfFolders = (workingDir, answers) => {
     answers.instances.split(",")
         .forEach(instanceName => {
+            instanceName = instanceName.trim();
             console.log(chalk.blue(`Creating '${instanceName}' instance configuration...`));
 
             const destination = `${workingDir}/src/conf/config-${instanceName}.d`;
