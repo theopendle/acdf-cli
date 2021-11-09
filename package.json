@@ -7,8 +7,12 @@
         "ac-init": "index.js"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "format": "git diff --name-only HEAD | grep -e '.xml' -e 'js' | xargs prettier --write | cut -f 1 -d ' ' | xargs git add"
     },
+    "pre-commit": [
+        "format"
+    ],
     "author": "Theo Pendle <theopendle@gmail.com>",
     "license": "ISC",
     "dependencies": {
@@ -20,18 +24,7 @@
         "ncp": "^2.0.0"
     },
     "devDependencies": {
-        "husky": "^7.0.4",
-        "lint-staged": "^11.2.6",
+        "pre-commit": "^1.2.2",
         "prettier": "^2.4.1"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.js": [
-            "prettier --write"
-        ]
     }
 }
