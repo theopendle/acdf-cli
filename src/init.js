@@ -19,6 +19,13 @@ const PACKAGE_JSON = {
     }
 }
 
+/**
+ * Recursively reads all files in a directory into a flat list of paths.
+ * 
+ * @param {string} filepath 
+ * @param {string[]} list 
+ * @returns 
+ */
 function readDir(filepath, list) {
 
     if (!list) {
@@ -34,7 +41,10 @@ function readDir(filepath, list) {
     return list;
 }
 
-function updatePackageJson() {
+/**
+ * Updates the package.json file
+ */
+function updatePackageJson(argv) {
 
     // Check that a package.json file exists
     if (!fs.existsSync(target(PATH_PACKAGE_JSON))) {
@@ -47,9 +57,12 @@ function updatePackageJson() {
     packageObj.scripts = { ...packageObj.scripts, ...PACKAGE_JSON.scripts }
 
     fs.writeFileSync(target(PATH_PACKAGE_JSON), JSON.stringify(packageObj, null, 2));
+
+    argv.project = packageObj;
+    return argv;
 }
 
-function processTemplateFiles(argv, compilationInput) {
+function processTemplateFiles(argv) {
     readDir(template()).forEach(templateFilePath => {
 
         const fileRelativePath = path.relative(template(), templateFilePath);
@@ -68,7 +81,7 @@ function processTemplateFiles(argv, compilationInput) {
         const content = fs.readFileSync(templateFilePath).toString();
 
         log.debug(`${templateFilePath}: Compiling`);
-        const compiledContent = handlebars.compile(content)(compilationInput);
+        const compiledContent = handlebars.compile(content)(argv);
 
         log.debug(`${templateFilePath}: Writing`);
 
@@ -85,11 +98,5 @@ function processTemplateFiles(argv, compilationInput) {
 module.exports = {
     updatePackageJson: updatePackageJson,
     processTemplateFiles: processTemplateFiles,
-
-    init: (argv) => {
-        updatePackageJson();
-        processTemplateFiles(argv);
-    },
-
     PACKAGE_JSON: PACKAGE_JSON
 }

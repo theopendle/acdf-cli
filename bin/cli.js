@@ -4,15 +4,19 @@ const chalk = require('chalk');
 const errors = require('../src/errors');
 const log = require('loglevel');
 
-const { init } = require("../src/init");
+const { updatePackageJson, processTemplateFiles } = require("../src/init");
 const { prompt, readArgs } = require("../src/input");
 
 async function run() {
     try {
-        const argv = await prompt(await readArgs());
+        let argv = await readArgs();
+        argv = await prompt(argv);
+        argv = await updatePackageJson(argv);
+
+        console.log(JSON.stringify(argv, null, 2))
 
         log.setLevel(argv.verbose ? "DEBUG" : "INFO");
-        init(argv);
+        processTemplateFiles(argv);
 
     } catch (error) {
         if (Object.keys(errors)
