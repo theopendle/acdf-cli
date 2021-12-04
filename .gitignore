@@ -1,3 +1,6 @@
-# Dependency directories
+### Node ###
 node_modules/
-example/
+node/
+dist/
+out/
+coverage/

@@ -1,29 +1,36 @@
 {
-    "name": "ac-init",
+    "name": "@acdf/init",
     "version": "1.0.0",
-    "description": "",
+    "description": "ACDF project and file initialiser",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/theopendle/acdf-init"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
     "main": "index.js",
     "bin": {
-        "ac-init": "index.js"
+        "acdf": "bin/acdfInit.js"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "format": "git diff --name-only HEAD | grep -e '.xml' -e 'js' | xargs prettier --write | cut -f 1 -d ' ' | xargs git add"
     },
-    "pre-commit": [
-        "format"
-    ],
     "author": "Theo Pendle <theopendle@gmail.com>",
     "license": "ISC",
-    "dependencies": {
+    "devDependencies": {
         "chalk": "^4.1.2",
+        "cli-logger": "^0.5.40",
         "glob": "^7.2.0",
         "handlebars": "^4.7.7",
         "inquirer": "^8.2.0",
+        "jest": "^27.4.3",
         "json-colorizer": "^2.2.2",
-        "ncp": "^2.0.0"
-    },
-    "devDependencies": {
+        "loglevel": "^1.8.0",
+        "mock-fs": "^5.1.2",
+        "ncp": "^2.0.0",
+        "npm": "^8.2.0",
         "pre-commit": "^1.2.2",
         "prettier": "^2.4.1"
     }

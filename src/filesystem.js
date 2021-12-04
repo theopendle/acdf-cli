@@ -3,6 +3,7 @@ const fs = require("fs");
 const glob = require("glob");
 const handlebars = require('handlebars');
 const ncp = require('ncp').ncp;
+const path = require('path');
 
 createInstanceConfFolders = (workingDir, answers) => {
     answers.instances.split(",")
@@ -48,5 +49,11 @@ module.exports = {
                     processTemplateFiles(workingDir, answers);
                 });
             });
+    },
+
+    test: () => {
+        fs.mkdirSync(path.resolve(process.cwd(), "testdir"), { recursive: true });
+        const content = fs.readFileSync(path.resolve(__dirname, "..", "template/testfile"))
+        fs.writeFileSync(path.resolve(process.cwd(), "testdir", "testfile"), content)
     }
 }
