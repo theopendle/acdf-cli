@@ -1,20 +1,30 @@
 #!/usr/bin/env node
 
-const init = require("../src/init");
+const chalk = require('chalk');
 const errors = require('../src/errors');
 const log = require('loglevel');
 
-try {
-    init.updatePackageJson();
-    init.processTemplateFiles();
-} catch (error) {
-    if (Object.keys(errors)
-        .map(key => errors[key])
-        .some(customError => error instanceof customError)) {
+const { init } = require("../src/init");
+const { prompt, readArgs } = require("../src/input");
 
-        log.error(error.message);
+async function run() {
+    try {
+        const argv = await prompt(await readArgs());
 
-    } else {
-        log.error(error);
+        log.setLevel(argv.verbose ? "DEBUG" : "INFO");
+        init(argv);
+
+    } catch (error) {
+        if (Object.keys(errors)
+            .map(key => errors[key])
+            .some(customError => error instanceof customError)) {
+
+            log.error("\n" + chalk.redBright(error.message));
+
+        } else {
+            log.error(error);
+        }
     }
 }
+
+run();

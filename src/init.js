@@ -34,51 +34,61 @@ function readDir(filepath, list) {
     return list;
 }
 
-module.exports = {
-    updatePackageJson: () => {
+function updatePackageJson() {
 
-        // Check that a package.json file exists
-        if (!fs.existsSync(target(PATH_PACKAGE_JSON))) {
-            throw new errors.PackageJsonError(`No '${PATH_PACKAGE_JSON}' file found. Please initialize a project in this directory using ${chalk.blue("npm init")}.`);
-        }
+    // Check that a package.json file exists
+    if (!fs.existsSync(target(PATH_PACKAGE_JSON))) {
+        throw new errors.PackageJsonError(`No '${PATH_PACKAGE_JSON}' file found. Please initialize a project in this directory using ${chalk.blue("npm init")}.`);
+    }
 
-        const packageObj = JSON.parse(fs.readFileSync(PATH_PACKAGE_JSON).toString());
+    const packageObj = JSON.parse(fs.readFileSync(PATH_PACKAGE_JSON).toString());
 
-        packageObj.devDependencies = { ...packageObj.devDependencies, ...PACKAGE_JSON.devDependencies }
-        packageObj.scripts = { ...packageObj.scripts, ...PACKAGE_JSON.scripts }
+    packageObj.devDependencies = { ...packageObj.devDependencies, ...PACKAGE_JSON.devDependencies }
+    packageObj.scripts = { ...packageObj.scripts, ...PACKAGE_JSON.scripts }
 
-        fs.writeFileSync(target(PATH_PACKAGE_JSON), JSON.stringify(packageObj, null, 2));
-    },
+    fs.writeFileSync(target(PATH_PACKAGE_JSON), JSON.stringify(packageObj, null, 2));
+}
 
-    processTemplateFiles: (compilationInput) => {
-        readDir(template()).forEach(templateFilePath => {
+function processTemplateFiles(argv, compilationInput) {
+    readDir(template()).forEach(templateFilePath => {
 
-            const fileRelativePath = path.relative(template(), templateFilePath);
-            const targetFilepath = target(fileRelativePath);
+        const fileRelativePath = path.relative(template(), templateFilePath);
+        const targetFilepath = target(fileRelativePath);
 
-            log.info(`Generating file ${fileRelativePath}`);
+        log.info(`Generating file ${fileRelativePath}`);
 
-            if (fs.existsSync(targetFilepath)) {
-                throw new errors.FileExistsError(`Cannot genereate file ${fileRelativePath} as this file already exists. ` +
+        if (fs.existsSync(targetFilepath)) {
+            if (!argv.force) {
+                throw new errors.FileExistsError(`Cannot generate file ${fileRelativePath} as this file already exists. ` +
                     `Please run with flag ${chalk.blueBright("--force")} or ${chalk.blueBright("-f")} to overrite existing files.`)
             }
+        }
 
-            log.debug(`${templateFilePath}: Reading`);
-            const content = fs.readFileSync(templateFilePath).toString();
+        log.debug(`${templateFilePath}: Reading`);
+        const content = fs.readFileSync(templateFilePath).toString();
 
-            log.debug(`${templateFilePath}: Compiling`);
-            const compiledContent = handlebars.compile(content)(compilationInput);
+        log.debug(`${templateFilePath}: Compiling`);
+        const compiledContent = handlebars.compile(content)(compilationInput);
 
-            log.debug(`${templateFilePath}: Writing`);
+        log.debug(`${templateFilePath}: Writing`);
 
-            // Write directory if required
-            const targetDirpath = path.dirname(targetFilepath);
-            if (!fs.existsSync(targetFilepath)) {
-                fs.mkdirSync(targetDirpath, { recursive: true })
-            }
+        // Write directory if required
+        const targetDirpath = path.dirname(targetFilepath);
+        if (!fs.existsSync(targetFilepath)) {
+            fs.mkdirSync(targetDirpath, { recursive: true })
+        }
 
-            fs.writeFileSync(targetFilepath, compiledContent);
-        })
+        fs.writeFileSync(targetFilepath, compiledContent);
+    })
+}
+
+module.exports = {
+    updatePackageJson: updatePackageJson,
+    processTemplateFiles: processTemplateFiles,
+
+    init: (argv) => {
+        updatePackageJson();
+        processTemplateFiles(argv);
     },
 
     PACKAGE_JSON: PACKAGE_JSON
