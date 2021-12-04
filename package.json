@@ -1,17 +1,17 @@
 {
-    "name": "@acdf/init",
+    "name": "@acdf/cli",
     "version": "1.0.0",
-    "description": "ACDF project and file initialiser",
+    "description": "Adobe Campaign Developer framework command-line client",
     "repository": {
         "type": "git",
-        "url": "https://github.com/theopendle/acdf-init"
+        "url": "https://github.com/theopendle/acdf-cli"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org"
     },
     "main": "index.js",
     "bin": {
-        "acdf": "bin/acdfInit.js"
+        "acdf": "bin/cli.js"
     },
     "scripts": {
         "test": "jest",

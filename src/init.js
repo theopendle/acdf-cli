@@ -50,7 +50,7 @@ module.exports = {
         fs.writeFileSync(target(PATH_PACKAGE_JSON), JSON.stringify(packageObj, null, 2));
     },
 
-    processTemplateFiles: async (compilationInput) => {
+    processTemplateFiles: (compilationInput) => {
         readDir(template()).forEach(templateFilePath => {
 
             const fileRelativePath = path.relative(template(), templateFilePath);
@@ -59,8 +59,8 @@ module.exports = {
             log.info(`Generating file ${fileRelativePath}`);
 
             if (fs.existsSync(targetFilepath)) {
-                throw new errors.FileExistsError(`Cannot genereate file ${fileRelativePath} as this file already exists.` +
-                    `Please run with flag ${chalk.blue("--force")} or ${chalk.blue("-f")} to overrite existing files.`)
+                throw new errors.FileExistsError(`Cannot genereate file ${fileRelativePath} as this file already exists. ` +
+                    `Please run with flag ${chalk.blueBright("--force")} or ${chalk.blueBright("-f")} to overrite existing files.`)
             }
 
             log.debug(`${templateFilePath}: Reading`);
