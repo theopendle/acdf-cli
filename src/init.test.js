@@ -18,14 +18,38 @@ describe('Initialization', () => {
         expect(() => init.updatePackageJson()).toThrow(errors.PackageJsonError);
     })
 
-    it("test", () => {
-        mock({
-            "package.json": '{"name": "test"}'
-        });
+    it("should add devDependencies and scripts to package.json", () => {
+        const packageObj = {
+            name: "test",
+        }
+        mock({ "package.json": JSON.stringify(packageObj) });
+
         init.updatePackageJson();
 
-        const packageObj = JSON.parse(fs.readFileSync("package.json", "utf-8"));
-        expect(packageObj.devDependencies).toStrictEqual(init.DEV_DEPENDENCIES)
+        const actual = JSON.parse(fs.readFileSync("package.json").toString());
+
+        expect(actual.devDependencies).toEqual(init.PACKAGE_JSON.devDependencies)
+        expect(actual.scripts).toEqual(init.PACKAGE_JSON.scripts)
+    })
+
+    it("should append devDependencies and scripts to package.json", () => {
+        const packageObj = {
+            name: "test",
+            scripts: {
+                doSomething: ""
+            },
+            devDependencies: {
+                dep: "1.0.0"
+            }
+        }
+        mock({ "package.json": JSON.stringify(packageObj) });
+
+        init.updatePackageJson();
+
+        const actual = JSON.parse(fs.readFileSync("package.json").toString());
+
+        expect(actual.devDependencies).toEqual({ ...packageObj.devDependencies, ...init.PACKAGE_JSON.devDependencies })
+        expect(actual.scripts).toEqual({ ...packageObj.scripts, ...init.PACKAGE_JSON.scripts })
     })
 
     it("it should copy a template file into the target directory", async () => {

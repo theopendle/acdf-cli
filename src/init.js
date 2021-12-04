@@ -9,8 +9,14 @@ const { target, template } = require("./paths")
 
 const PATH_PACKAGE_JSON = "package.json"
 
-const DEV_DEPENDENCIES = {
-    "@acdf/build": "^1.0.4"
+const PACKAGE_JSON = {
+    scripts: {
+        "build": "gulp && jest",
+        "test": "gulp test && jest"
+    },
+    devDependencies: {
+        "@acdf/build": "^1.0.4"
+    }
 }
 
 function readDir(filepath, list) {
@@ -36,8 +42,10 @@ module.exports = {
             throw new errors.PackageJsonError(`No '${PATH_PACKAGE_JSON}' file found. Please initialize a project in this directory using ${chalk.blue("npm init")}.`);
         }
 
-        const packageObj = require(target(PATH_PACKAGE_JSON));
-        packageObj.devDependencies = { ...packageObj.devDependencies, ...DEV_DEPENDENCIES }
+        const packageObj = JSON.parse(fs.readFileSync(PATH_PACKAGE_JSON).toString());
+
+        packageObj.devDependencies = { ...packageObj.devDependencies, ...PACKAGE_JSON.devDependencies }
+        packageObj.scripts = { ...packageObj.scripts, ...PACKAGE_JSON.scripts }
 
         fs.writeFileSync(target(PATH_PACKAGE_JSON), JSON.stringify(packageObj, null, 2));
     },
@@ -73,5 +81,5 @@ module.exports = {
         })
     },
 
-    DEV_DEPENDENCIES: DEV_DEPENDENCIES
+    PACKAGE_JSON: PACKAGE_JSON
 }
