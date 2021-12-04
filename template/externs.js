@@ -5,7 +5,8 @@
  * 
  * This file serves two puposes:
  *   1. It is loaded during compilation in order to avoid compilation
- *      error by the GCC engine.
+ *      error by the GCC engine. FOr more information on this usage, see:
+ *      https://developers.google.com/closure/compiler/docs/externs-and-exports
  * 
  *   2. It is loaded into the global scope during testing to avoid interpretation
  *      errors during test execution. Of course, if you wish to mock some
