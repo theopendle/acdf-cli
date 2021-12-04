@@ -5,7 +5,6 @@ const fs = require('fs');
 const mock = require('mock-fs');
 
 const { target, project, template } = require("./paths");
-const glob = require("glob-promise");
 
 const TARGET_DIR = "/tmp/target";
 const SIMPLE_SAMPLE_CONTENT = "sample";

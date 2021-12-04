@@ -1,7 +1,6 @@
 const chalk = require("chalk")
 const errors = require("./errors")
 const fs = require('fs');
-const glob = require('glob-promise');
 const handlebars = require('handlebars');
 const log = require("loglevel");
 const path = require("path");
