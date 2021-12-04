@@ -1,3 +1,2 @@
-class PackageJsonError extends Error { };
-
-exports.PackageJsonError = PackageJsonError;
+exports.PackageJsonError = class PackageJsonError extends Error { };;
+exports.FileExistsError = class FileExistsError extends Error { };;

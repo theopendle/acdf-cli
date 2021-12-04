@@ -23,6 +23,7 @@
         "chalk": "^4.1.2",
         "cli-logger": "^0.5.40",
         "glob": "^7.2.0",
+        "glob-promise": "^4.2.2",
         "handlebars": "^4.7.7",
         "inquirer": "^8.2.0",
         "jest": "^27.4.3",

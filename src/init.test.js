@@ -3,7 +3,12 @@ const errors = require("./errors")
 const init = require('../src/init');
 const fs = require('fs');
 const mock = require('mock-fs');
-const { hasUncaughtExceptionCaptureCallback } = require('process');
+
+const { target, project, template } = require("./paths");
+const glob = require("glob-promise");
+
+const TARGET_DIR = "/tmp/target";
+const SIMPLE_SAMPLE_CONTENT = "sample";
 
 describe('Initialization', () => {
     beforeAll(() => {
@@ -23,6 +28,25 @@ describe('Initialization', () => {
         const packageObj = JSON.parse(fs.readFileSync("package.json", "utf-8"));
         expect(packageObj.devDependencies).toStrictEqual(init.DEV_DEPENDENCIES)
     })
+
+    it("it should copy a template file into the target directory", async () => {
+        mock({
+            "template": {
+                "sample.txt": SIMPLE_SAMPLE_CONTENT
+            }
+        });
+        jest.spyOn(process, 'cwd').mockReturnValue(TARGET_DIR);
+
+        init.processTemplateFiles()
+
+        const samplePath = target("sample.txt");
+        expect(fs.existsSync(samplePath)).toBe(true)
+
+        const actual = fs.readFileSync(samplePath).toString();
+        expect(actual).toStrictEqual(SIMPLE_SAMPLE_CONTENT);
+    })
+
+
 
     afterAll(() => {
         mock.restore();
