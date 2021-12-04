@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const errors = require('../src/errors');
 const log = require('loglevel');
 
-const { updatePackageJson, processTemplateFiles } = require("../src/init");
+const { updatePackageJson, processTemplateFiles } = require("../src/init/init");
 const { prompt, readArgs } = require("../src/input");
 
 async function run() {

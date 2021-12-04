@@ -1,0 +1,4 @@
+<web>
+    <spamCheck command="/usr/local/neolane/nl6/bin/spamcheck.pl" />
+    <apiLimit limit="\{{ apiLimit }}" warnOnly="false" />
+</web>
