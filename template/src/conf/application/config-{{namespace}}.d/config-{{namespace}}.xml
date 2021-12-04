@@ -1,0 +1,6 @@
+<?xml version='1.0' ?>
+<serverConf>
+    \{{> xml/conf/inMail.xml }}
+    \{{> xml/conf/mta.xml }}
+    \{{> xml/conf/web.xml }}
+</serverConf>

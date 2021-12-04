@@ -1,0 +1,4 @@
+<?xml version='1.0' ?>
+<serverConf>
+    \{{> xml/conf/tracking.xml }}
+</serverConf>

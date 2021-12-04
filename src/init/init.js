@@ -1,11 +1,12 @@
 const chalk = require("chalk")
-const errors = require("./errors")
+const errors = require("../errors")
 const fs = require('fs');
 const handlebars = require('handlebars');
 const log = require("loglevel");
 const path = require("path");
 
-const { target, template } = require("./paths")
+const { target, template } = require("../paths");
+const { exit } = require("process");
 
 const PATH_PACKAGE_JSON = "package.json"
 
@@ -54,7 +55,7 @@ function updatePackageJson(argv) {
     const packageObj = JSON.parse(fs.readFileSync(PATH_PACKAGE_JSON).toString());
 
     packageObj.devDependencies = { ...packageObj.devDependencies, ...PACKAGE_JSON.devDependencies }
-    packageObj.scripts = { ...packageObj.scripts, ...PACKAGE_JSON.scripts }
+    packageObj.scripts = { ...packageObj.scripts, ...PACKAGE_JSON.scripts };
 
     fs.writeFileSync(target(PATH_PACKAGE_JSON), JSON.stringify(packageObj, null, 2));
 
@@ -65,7 +66,8 @@ function updatePackageJson(argv) {
 function processTemplateFiles(argv) {
     readDir(template()).forEach(templateFilePath => {
 
-        const fileRelativePath = path.relative(template(), templateFilePath);
+        const fileRelativePathTemplate = path.relative(template(), templateFilePath);
+        const fileRelativePath = handlebars.compile(fileRelativePathTemplate)(argv);
         const targetFilepath = target(fileRelativePath);
 
         log.info(`Generating file ${fileRelativePath}`);
