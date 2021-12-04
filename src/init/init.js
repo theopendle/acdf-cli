@@ -64,6 +64,9 @@ function updatePackageJson(argv) {
 }
 
 function processTemplateFiles(argv) {
+    handlebars.registerHelper('lowerCase', string => string.toLowerCase());
+    handlebars.registerHelper('upperCase', string => string.toUpperCase());
+
     readDir(template()).forEach(templateFilePath => {
 
         const fileRelativePathTemplate = path.relative(template(), templateFilePath);
