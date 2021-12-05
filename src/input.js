@@ -1,51 +1,38 @@
 
 const inquirer = require("inquirer");
-
 const yargs = require('yargs/yargs')
-const { hideBin } = require('yargs/helpers')
+const { hideBin } = require('yargs/helpers');
+const log = require('loglevel');
+const initCommand = require("./init/initCommand");
+const packageCommand = require("./package/packageCommand");
 
-const INPUTS = [
-    {
-        common: {
-            name: "namespace",
-            default: "acdf",
-            message: "The Adobe Campaign namespace for your project. eg: 'acdf'",
-        },
-        prompt: {
-            type: "input",
-            validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
-        },
-        option: {}
-    },
-    {
-        common: {
-            name: "force",
-            default: false,
-            message: "Overwrite existing files",
-        },
-        prompt: {
-            type: "confirm",
-        },
-        option: {}
-    },
-    {
-        common: {
-            name: "verbose",
-            default: false,
-            message: "Run with verbose loggings",
-        },
-        option: {
-            alias: "v"
+
+function provideCommand(command, resolve) {
+    return {
+        name: command.command,
+        command: command.command,
+        desc: command.desc,
+        handler: (argv) => {
+            inquirer.prompt(command.prompts(argv))
+                .then(answers => {
+                    log.setLevel(argv.verbose ? "DEBUG" : "INFO");
+                    command.handler({ ...argv, ...answers });
+                })
         }
     }
-]
+}
 
 async function readArgs() {
-    return new Promise((resolve, reject) =>
+    return new Promise((resolve, reject) => {
+
+        const init = provideCommand(initCommand.init, resolve)
+        const packageNew = provideCommand(packageCommand.new, resolve)
+        const packageNumber = provideCommand(packageCommand.number, resolve)
+
         yargs(hideBin(process.argv))
-            .command('init', 'initialze a new project in the current directory', () => { }, (argv) => {
-                resolve(argv)
-            })
+            .command(init)
+            .command(packageNew)
+            .command(packageNumber)
             .option('verbose', {
                 alias: 'v',
                 type: 'boolean',
@@ -56,19 +43,12 @@ async function readArgs() {
                 type: 'boolean',
                 description: 'Overwrite existing files during initialization'
             })
-            .parse());
-}
-
-async function prompt(argv) {
-    const prompts = INPUTS
-        .filter(input => input.prompt)
-        .map(input => ({ ...input.common, ...input.prompt }));
-
-    return inquirer.prompt(prompts)
-        .then(answers => ({ ...argv, ...answers }))
+            .help("h")
+            .demandCommand()
+            .parse()
+    })
 }
 
 module.exports = {
-    prompt: prompt,
     readArgs: readArgs
 }

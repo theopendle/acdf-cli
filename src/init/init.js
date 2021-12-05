@@ -6,7 +6,6 @@ const log = require("loglevel");
 const path = require("path");
 
 const { target, template } = require("../paths");
-const { exit } = require("process");
 
 const PATH_PACKAGE_JSON = "package.json"
 
@@ -103,5 +102,10 @@ function processTemplateFiles(argv) {
 module.exports = {
     updatePackageJson: updatePackageJson,
     processTemplateFiles: processTemplateFiles,
-    PACKAGE_JSON: PACKAGE_JSON
+    PACKAGE_JSON: PACKAGE_JSON,
+
+    run: (argv) => {
+        argv = updatePackageJson(argv);
+        processTemplateFiles(argv);
+    }
 }
