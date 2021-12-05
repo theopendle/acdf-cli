@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
     new: (argv) => {
         console.log("PACKAGE NEW")
     },
