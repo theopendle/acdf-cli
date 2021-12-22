@@ -1,8 +1,8 @@
 module.exports = {
     new: (argv) => {
-        console.log("PACKAGE NEW")
+        console.log(`Creating new package ${argv.number}-${argv.name}.xml`)
     },
     number: (argv) => {
-        console.log("PACKAGE NUMBER")
+        console.log(`MOVE`)
     }
 }

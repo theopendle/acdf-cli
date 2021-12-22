@@ -3,7 +3,7 @@ const package = require("./package")
 module.exports = {
 
     new: {
-        command: 'package new [number] [name]',
+        command: 'new [number] [name]',
         desc: 'create a new package',
         handler: package.new,
         prompts: (argv) => {
@@ -34,7 +34,7 @@ module.exports = {
     },
 
     number: {
-        command: 'package number [number] [arithmatic]',
+        command: 'number [number] [arithmatic]',
         desc: 'change package installation numbers',
         handler: package.number,
         prompts: (argv) => {
@@ -42,21 +42,22 @@ module.exports = {
 
             if (!argv.number) {
                 prompts.push({
-                    name: "name",
-                    message: "Package name",
-                    default: "schema",
+                    name: "number",
+                    message: "Package installation number",
+                    default: "1",
                     type: "input",
-                    validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
-                });
+                    validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
+                })
             }
 
             prompts.push({
-                name: "number",
-                message: "Package installation number",
-                default: "1",
+                name: "name",
+                message: "Package name",
+                default: "schema",
                 type: "input",
-                validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
-            })
+                validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
+            });
+
             return prompts
         }
     }

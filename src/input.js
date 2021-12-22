@@ -6,8 +6,13 @@ const log = require('loglevel');
 const initCommand = require("./init/initCommand");
 const packageCommand = require("./package/packageCommand");
 
-
-function provideCommand(command, resolve) {
+/**
+ * Builds a yargs command that runs optional inquirer prompts before executing.
+ * 
+ * @param {object} command 
+ * @returns 
+ */
+function provideCommand(command) {
     return {
         name: command.command,
         command: command.command,
@@ -31,8 +36,11 @@ async function readArgs() {
 
         yargs(hideBin(process.argv))
             .command(init)
-            .command(packageNew)
-            .command(packageNumber)
+            .command("package", "manipulate packages", (yargs) => {
+                yargs
+                    .command(packageNew)
+                    .command(packageNumber)
+            })
             .option('verbose', {
                 alias: 'v',
                 type: 'boolean',
