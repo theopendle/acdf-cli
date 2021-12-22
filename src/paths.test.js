@@ -27,10 +27,10 @@ describe('Paths', () => {
     })
 
     it("should return the template directory", () => {
-        expect(template()).toBe(path.resolve(__dirname, "../template"));
+        expect(template("init")).toBe(path.resolve(__dirname, "init/template"));
     })
 
     it("should return a path in the template directory", () => {
-        expect(target("sample.txt")).toBe(path.resolve(__dirname, "../template", TARGET_DIR + "/" + SAMPLE_FILE));
+        expect(template("init", "sample.txt")).toBe(path.resolve(__dirname, "init/template", SAMPLE_FILE));
     })
 });

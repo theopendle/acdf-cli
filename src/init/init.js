@@ -48,7 +48,7 @@ function updatePackageJson(argv) {
 
     // Check that a package.json file exists
     if (!fs.existsSync(target(PATH_PACKAGE_JSON))) {
-        throw new errors.PackageJsonError(`No '${PATH_PACKAGE_JSON}' file found. Please initialize a project in this directory using ${chalk.blue("npm init")}.`);
+        throw new errors.PackageJsonError(`No '${PATH_PACKAGE_JSON}' file found. Please initialize a project in this directory using ${chalk.blueBright("npm init")}.`);
     }
 
     const packageObj = JSON.parse(fs.readFileSync(PATH_PACKAGE_JSON).toString());
@@ -66,9 +66,9 @@ function processTemplateFiles(argv) {
     handlebars.registerHelper('lowerCase', string => string.toLowerCase());
     handlebars.registerHelper('upperCase', string => string.toUpperCase());
 
-    readDir(template()).forEach(templateFilePath => {
+    readDir(template("init")).forEach(templateFilePath => {
 
-        const fileRelativePathTemplate = path.relative(template(), templateFilePath);
+        const fileRelativePathTemplate = path.relative(template("init"), templateFilePath);
         const fileRelativePath = handlebars.compile(fileRelativePathTemplate)(argv);
         const targetFilepath = target(fileRelativePath);
 

@@ -11,7 +11,11 @@ const SIMPLE_SAMPLE_CONTENT = "sample";
 
 function runTest(argv, templateMockFs, filepath) {
     mock({
-        "template": templateMockFs
+        "src": {
+            "init": {
+                "template": templateMockFs
+            }
+        }
     });
     jest.spyOn(process, 'cwd').mockReturnValue(TARGET_DIR);
 

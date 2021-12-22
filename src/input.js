@@ -1,10 +1,30 @@
 
+const errors = require("./errors");
 const inquirer = require("inquirer");
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers');
 const log = require('loglevel');
 const initCommand = require("./init/initCommand");
 const packageCommand = require("./package/packageCommand");
+const chalk = require("chalk");
+
+/**
+ * If the error is expected, the message is logged. If the error is unexpected,
+ * the entire error is logged. 
+ * 
+ * @param {object} error 
+ */
+function handleError(error) {
+    if (Object.keys(errors)
+        .map(key => errors[key])
+        .some(customError => error instanceof customError)) {
+
+        log.error("\n" + chalk.redBright(error.message));
+
+    } else {
+        log.error(error);
+    }
+}
 
 /**
  * Builds a yargs command that runs optional inquirer prompts before executing.
@@ -21,7 +41,11 @@ function provideCommand(command) {
             inquirer.prompt(command.prompts(argv))
                 .then(answers => {
                     log.setLevel(argv.verbose ? "DEBUG" : "INFO");
-                    command.handler({ ...argv, ...answers });
+                    try {
+                        command.handler({ ...argv, ...answers });
+                    } catch (error) {
+                        handleError(error)
+                    }
                 })
         }
     }

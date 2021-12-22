@@ -9,7 +9,7 @@ module.exports = {
         return path.resolve(__dirname, "..", ...paths)
     },
 
-    template: (...paths) => {
-        return path.resolve(__dirname, "../template", ...paths)
+    template: (root, ...paths) => {
+        return path.resolve(__dirname, root, "template", ...paths)
     }
 }
