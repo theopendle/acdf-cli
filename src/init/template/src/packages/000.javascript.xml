@@ -1,0 +1,20 @@
+<builder>
+    <package author="Administrator (admin)" buildDate="{{ build.ts }}" buildNumber="9343" buildVersion="6.7" img="xtk:installedPackage.png" label="{{ package.number}} - JS scripts  {{ build.version }}" name="js_scripts" namespace="{{ namespace }}" vendor="">
+        <entities schema="xtk:javascript">
+            <javascript entitySchema="xtk:javascript" img="xtk:javascript.png" label="{{ namespace }}:namespace.library.js" name="namespace.library.js" namespace="{{ namespace }}">
+                <data>
+                {{> js/namespace.library.js}}
+                </data>
+            </javascript>
+        </entities>
+        <entities schema="xtk:specFile">
+            <specFile img="xtk:installedPackage.png" includeDefaultValues="false" includeInstallScript="false" includeSpec="true" label="{{ package.number}} - JS scripts  {{ build.version }}" name="js_scripts" namespace="{{ namespace }}" type="0">
+                <definition automaticDefinition="false" id="296616155" lineCountMax="5000" schema="xtk:javascript">
+                    <where displayFilter="namespace equal to '{{ namespace }}'">
+                        <condition compositeKey="" dependkey="" enabledIf="" expr="@namespace = '{{ namespace }}'"/>
+                    </where>
+                </definition>
+            </specFile>
+        </entities>
+    </package>
+</builder>
