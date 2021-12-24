@@ -1,3 +1,5 @@
 {
-    "namespace": "{{ namespace }}"
+    "namespace": "{{ namespace }}",
+    "campaignVersion": "{{ campaignVersion }}",
+    "campaignBuildVersion": "{{ campaignBuildVersion }}" 
 }

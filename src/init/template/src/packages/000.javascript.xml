@@ -1,9 +1,9 @@
 <builder>
-    <package author="Administrator (admin)" buildDate="{{ build.ts }}" buildNumber="9343" buildVersion="6.7" img="xtk:installedPackage.png" label="{{ package.number}} - JS scripts  {{ build.version }}" name="js_scripts" namespace="{{ namespace }}" vendor="">
+    <package author="Administrator (admin)" buildDate="{{ build.ts }}" buildNumber="{{ campaignBuildVersion }}" buildVersion="{{ campaignBuildVersion }}" img="xtk:installedPackage.png" label="{{ package.number}} - JS scripts  {{ build.version }}" name="js_scripts" namespace="{{ namespace }}" vendor="">
         <entities schema="xtk:javascript">
             <javascript entitySchema="xtk:javascript" img="xtk:javascript.png" label="{{ namespace }}:namespace.library.js" name="namespace.library.js" namespace="{{ namespace }}">
                 <data>
-                {{> js/namespace.library.js}}
+                \{{> js/namespace.library.js}}
                 </data>
             </javascript>
         </entities>

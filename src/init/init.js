@@ -36,7 +36,8 @@ function readDir(filepath, list) {
         fs.readdirSync(filepath).forEach((child) => readDir(path.resolve(filepath, child), list));
 
     } else {
-        list.push(filepath)
+        log.debug(`${filepath}: Partial added`)
+        list.push(filepath);
     }
     return list;
 }

@@ -12,7 +12,21 @@ module.exports = {
                     message: "The Adobe Campaign namespace for your project. eg: 'acdf'",
                     default: "acdf",
                     type: "input",
-                    validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
+                    validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
+                },
+                {
+                    name: "campaignVersion",
+                    message: "The Adobe Campaign version",
+                    default: "6.7",
+                    type: "input",
+                    validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
+                },
+                {
+                    name: "campaignBuildVersion",
+                    message: "The Adobe Campaign build version",
+                    default: "9343",
+                    type: "input",
+                    validate: (input) => /\d{4}/.test(input.match(input)) || "You shouldn't leave this field empty!"
                 }
             ]
 
