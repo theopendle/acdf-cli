@@ -15,18 +15,18 @@ module.exports = {
                     validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
                 },
                 {
-                    name: "campaignVersion",
+                    name: "campaignBuildVersion",
                     message: "The Adobe Campaign version",
                     default: "6.7",
                     type: "input",
                     validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
                 },
                 {
-                    name: "campaignBuildVersion",
-                    message: "The Adobe Campaign build version",
+                    name: "campaignBuildNumber",
+                    message: "The Adobe Campaign build number",
                     default: "9343",
                     type: "input",
-                    validate: (input) => /\d{4}/.test(input.match(input)) || "You shouldn't leave this field empty!"
+                    validate: (input) => /\d{4}/.test(input.match(input)) || "This should be a 4-digit number"
                 }
             ]
 
