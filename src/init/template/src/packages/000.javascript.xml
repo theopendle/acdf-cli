@@ -9,7 +9,7 @@
         </entities>
         <entities schema="xtk:specFile">
             <specFile img="xtk:installedPackage.png" includeDefaultValues="false" includeInstallScript="false" includeSpec="true" label="\{{ package.number}} - JS scripts  \{{ build.version }}" name="js_scripts" namespace="\{{ namespace }}" type="0">
-                <definition automaticDefinition="false" id="296616155" lineCountMax="5000" schema="xtk:javascript">
+                <definition automaticDefinition="false" lineCountMax="5000" schema="xtk:javascript">
                     <where displayFilter="namespace equal to '\{{ namespace }}'">
                         <condition compositeKey="" dependkey="" enabledIf="" expr="@namespace = '\{{ namespace }}'"/>
                     </where>
