@@ -49,7 +49,7 @@ function updatePackageJson(argv) {
 
     // Check that a package.json file exists
     if (!fs.existsSync(target(PATH_PACKAGE_JSON))) {
-        throw new errors.PackageJsonError(`No '${PATH_PACKAGE_JSON}' file found. Please initialize a project in this directory using ${chalk.blueBright("npm init")}.`);
+        throw new errors.CliError(`No '${PATH_PACKAGE_JSON}' file found. Please initialize a project in this directory using ${chalk.blueBright("npm init")}.`);
     }
 
     const packageObj = JSON.parse(fs.readFileSync(PATH_PACKAGE_JSON).toString());
@@ -77,7 +77,7 @@ function processTemplateFiles(argv) {
 
         if (fs.existsSync(targetFilepath)) {
             if (!argv.force) {
-                throw new errors.FileExistsError(`Cannot generate file ${fileRelativePath} as this file already exists. ` +
+                throw new errors.CliError(`Cannot generate file ${fileRelativePath} as this file already exists. ` +
                     `Please run with flag ${chalk.blueBright("--force")} or ${chalk.blueBright("-f")} to overrite existing files.`)
             }
         }

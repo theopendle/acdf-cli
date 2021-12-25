@@ -3,8 +3,7 @@ const init = require("./init");
 const fs = require('fs');
 const mock = require('mock-fs');
 
-const { target, project, template } = require("../paths");
-const { file } = require("@babel/types");
+const { target } = require("../paths");
 
 const TARGET_DIR = "/tmp/target";
 const SIMPLE_SAMPLE_CONTENT = "sample";

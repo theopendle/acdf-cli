@@ -15,10 +15,7 @@ const chalk = require("chalk");
  * @param {object} error 
  */
 function handleError(error) {
-    if (Object.keys(errors)
-        .map(key => errors[key])
-        .some(customError => error instanceof customError)) {
-
+    if (error instanceof errors.CliError) {
         log.error("\n" + chalk.redBright(error.message));
 
     } else {

@@ -19,7 +19,7 @@ describe('Initialization', () => {
     });
 
     it("should throw an error if no package.json is present", () => {
-        expect(() => init.updatePackageJson()).toThrow(errors.PackageJsonError);
+        expect(() => init.updatePackageJson()).toThrow(errors.CliError);
     })
 
     it("should add package json properties to argv", () => {

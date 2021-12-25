@@ -1,0 +1,29 @@
+<builder>
+    <package author="Administrator (admin)" buildDate="\{{ build.ts }}" buildNumber="\{{ campaignBuildNumber }}" buildVersion="\{{ campaignBuildVersion }}" img="xtk:installedPackage.png" label="\{{ package.number}} - JS scripts  \{{ build.version }}" name="js_scripts" namespace="\{{ namespace }}" vendor="">
+        
+        <!-- Add your entities here. For example, a javascript file: -->
+        
+        <!-- <entities schema="xtk:javascript">
+            <javascript entitySchema="xtk:javascript" img="xtk:javascript.png" label="\{{ namespace }}:namespace.library.js" name="namespace.library.js" namespace="\{{ namespace }}">
+                <data>
+                \{{> js/namespace.library.js}}
+                </data>
+            </javascript>
+        </entities> -->
+
+
+        <entities schema="xtk:specFile">
+            <specFile img="xtk:installedPackage.png" includeDefaultValues="false" includeInstallScript="false" includeSpec="true" label="\{{ package.number}} - JS scripts  \{{ build.version }}" name="js_scripts" namespace="\{{ namespace }}" type="0">
+                
+                <!-- Enter your package definition here. For example, for a package containing all javascript files under your namespace: -->
+
+                <!-- <definition automaticDefinition="false" lineCountMax="5000" schema="xtk:javascript">
+                    <where displayFilter="namespace equal to '\{{ namespace }}'">
+                        <condition compositeKey="" dependkey="" enabledIf="" expr="@namespace = '\{{ namespace }}'"/>
+                    </where>
+                </definition> -->
+
+            </specFile>
+        </entities>
+    </package>
+</builder>
