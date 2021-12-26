@@ -53,14 +53,14 @@ async function readArgs() {
 
         const init = provideCommand(initCommand.init, resolve)
         const packageNew = provideCommand(packageCommand.new, resolve)
-        const packageNumber = provideCommand(packageCommand.number, resolve)
+        const packageReorder = provideCommand(packageCommand.reorder, resolve)
 
         yargs(hideBin(process.argv))
             .command(init)
             .command("package", "manipulate packages", (yargs) => {
                 yargs
                     .command(packageNew)
-                    .command(packageNumber)
+                    .command(packageReorder)
             })
             .option('verbose', {
                 alias: 'v',

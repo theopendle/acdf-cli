@@ -33,10 +33,10 @@ module.exports = {
         }
     },
 
-    number: {
-        command: 'number [number] [arithmatic]',
+    reorder: {
+        command: 'reorder [number] [arithmatic]',
         desc: 'change package installation numbers',
-        handler: package.number,
+        handler: package.reorder,
         prompts: (argv) => {
             const prompts = []
 
