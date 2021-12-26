@@ -1,5 +1,7 @@
 const package = require("./package")
 
+VALIDATOR_PACKAGE_NUMBER = (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
+
 module.exports = {
 
     new: {
@@ -19,7 +21,7 @@ module.exports = {
                 promptMessage: "Package installation number",
                 promptType: "input",
                 default: "1",
-                validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
+                validate: VALIDATOR_PACKAGE_NUMBER
             }
 
         ]
@@ -35,7 +37,14 @@ module.exports = {
                 promptMessage: "Package installation number",
                 promptType: "input",
                 default: "1",
-                validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
+                validate: VALIDATOR_PACKAGE_NUMBER
+            },
+            {
+                name: "target",
+                promptMessage: "What number would you like the package to become?",
+                promptType: "input",
+                default: "1",
+                validate: VALIDATOR_PACKAGE_NUMBER
             }
         ]
     },
