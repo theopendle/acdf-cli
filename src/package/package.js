@@ -44,7 +44,7 @@ function findPackages(filepath, map) {
             return map
         }
 
-        map[parseInt(groups.number)] = groups.name
+        map[parseInt(groups.number)] = { name: groups.name, filepath: filepath }
     }
     return map;
 }
