@@ -77,7 +77,7 @@ function processTemplateFiles(argv) {
 
         if (fs.existsSync(targetFilepath)) {
             if (!argv.force) {
-                throw new errors.CliError(`Cannot generate file ${fileRelativePath} as this file already exists. ` +
+                throw new errors.CliError(`Cannot generate file '${fileRelativePath}' as this file already exists. ` +
                     `Please run with flag ${chalk.blueBright("--force")} or ${chalk.blueBright("-f")} to overrite existing files.`)
             }
         }

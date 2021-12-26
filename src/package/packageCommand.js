@@ -3,65 +3,40 @@ const package = require("./package")
 module.exports = {
 
     new: {
-        command: 'new [number] [name]',
+        name: 'new',
         desc: 'create a new package',
         handler: package.new,
-        prompts: (argv) => {
-
-            const prompts = []
-
-            if (!argv.name) {
-                prompts.push({
-                    name: "name",
-                    message: "Package name",
-                    default: "schema",
-                    type: "input",
-                    validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
-                });
+        inputs: [
+            {
+                name: "name",
+                promptMessage: "Package name",
+                promptType: "input",
+                default: "schema",
+                validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
+            },
+            {
+                name: "number",
+                promptMessage: "Package installation number",
+                promptType: "input",
+                default: "1",
+                validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
             }
 
-            if (!argv.number) {
-                prompts.push({
-                    name: "number",
-                    message: "Package installation number",
-                    default: "1",
-                    type: "input",
-                    validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
-                })
-            }
-            return prompts
-        }
+        ]
     },
 
     reorder: {
-        command: 'reorder [number] [arithmatic]',
+        name: 'reorder',
         desc: 'change package installation numbers',
         handler: package.reorder,
-        prompts: (argv) => {
-            const prompts = []
-
-            if (!argv.number) {
-                prompts.push({
-                    name: "number",
-                    message: "Package installation number",
-                    default: "1",
-                    type: "input",
-                    validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
-                })
+        inputs: [
+            {
+                name: "number",
+                promptMessage: "Package installation number",
+                promptType: "input",
+                default: "1",
+                validate: (input) => /^\d\d?\d?$/.test(input.match(input)) || "Should be a number from 0 - 999"
             }
-
-            prompts.push({
-                name: "name",
-                message: "Package name",
-                default: "schema",
-                type: "input",
-                validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
-            });
-
-            return prompts
-        }
-    }
-
-
+        ]
+    },
 }
-

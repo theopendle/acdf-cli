@@ -7,7 +7,7 @@ const log = require('loglevel');
 const { readArgs } = require("../src/input");
 
 async function run() {
-    await readArgs()
+    readArgs()
 }
 
 run();

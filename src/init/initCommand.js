@@ -2,45 +2,41 @@ const init = require("./init")
 
 module.exports = {
     init: {
-        command: 'init',
+        name: 'init',
         desc: 'initialze a new project in the current directory',
         handler: init.run,
-        prompts: (argv) => {
-            const prompts = [
-                {
-                    name: "namespace",
-                    message: "The Adobe Campaign namespace for your project. eg: 'acdf'",
-                    default: "acdf",
-                    type: "input",
-                    validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
-                },
-                {
-                    name: "campaignBuildVersion",
-                    message: "The Adobe Campaign version",
-                    default: "6.7",
-                    type: "input",
-                    validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
-                },
-                {
-                    name: "campaignBuildNumber",
-                    message: "The Adobe Campaign build number",
-                    default: "9343",
-                    type: "input",
-                    validate: (input) => /\d{4}/.test(input.match(input)) || "This should be a 4-digit number"
-                }
-            ]
-
-            if (!argv.force) {
-                prompts.push({
-                    name: "force",
-                    default: false,
-                    message: "Overwrite existing files",
-                    type: "confirm",
-                });
+        inputs: [
+            {
+                name: "namespace",
+                promptMessage: "The Adobe Campaign namespace for your project. eg: 'acdf'",
+                promptType: "input",
+                optionDescription: "Adobe Campaign namespace for your project",
+                default: "acdf",
+                validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
+            },
+            {
+                name: "campaignBuildVersion",
+                promptMessage: "The Adobe Campaign version",
+                promptType: "input",
+                default: "6.7",
+                validate: (input) => /.*/.test(input.match(input)) || "You shouldn't leave this field empty!"
+            },
+            {
+                name: "campaignBuildNumber",
+                promptMessage: "The Adobe Campaign build number",
+                promptType: "input",
+                default: "9343",
+                validate: (input) => /\d{4}/.test(input.match(input)) || "This should be a 4-digit number"
+            },
+            {
+                name: "force",
+                alias: "f",
+                promptMessage: "Overwrite existing files",
+                promptType: "confirm",
+                dataType: "boolean",
+                default: false
             }
-
-            return prompts
-        }
+        ]
     }
 }
 
