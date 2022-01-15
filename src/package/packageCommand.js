@@ -10,42 +10,13 @@ module.exports = {
         handler: package.new,
         inputs: [
             {
-                name: "name",
-                promptMessage: "Package name",
+                name: "filepath",
+                promptMessage: "Filepath",
                 promptType: "input",
-                default: "schema",
+                default: "common/000.newPackage.xml",
                 validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"
-            },
-            {
-                name: "number",
-                promptMessage: "Package installation number",
-                promptType: "input",
-                default: "1",
-                validate: VALIDATOR_PACKAGE_NUMBER
             }
 
         ]
-    },
-
-    reorder: {
-        name: 'reorder',
-        desc: 'change package installation numbers',
-        handler: package.reorder,
-        inputs: [
-            {
-                name: "number",
-                promptMessage: "Package installation number",
-                promptType: "input",
-                default: "1",
-                validate: VALIDATOR_PACKAGE_NUMBER
-            },
-            {
-                name: "target",
-                promptMessage: "What number would you like the package to become?",
-                promptType: "input",
-                default: "1",
-                validate: VALIDATOR_PACKAGE_NUMBER
-            }
-        ]
-    },
+    }
 }

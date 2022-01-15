@@ -145,14 +145,25 @@ module.exports = {
 
     new: (argv) => {
 
-        const numberInt = packageNumberAsInt(argv.number)
-        const packageMap = findPackages(PATH_TARGET_PACKAGE_DIR)
+        const relativeFilepath = argv.filepath;
+        const targetFilepath = paths.target(relativeFilepath);
 
-        // Warn if package number already exists
-        if (packageMap[numberString]) {
-            log.warn(`Package with number ${argv.numer} already exists: '${packageMap[numberInt]}'`)
-            // TODO
+        const targetDir = path.dirname(targetFilepath);
+        if(!fs.existsSync(targetDir)){
+            log.info(`Creating folder: ${chalk.greenBright(targetDir)}`)
         }
+
+        
+
+
+        // const numberInt = packageNumberAsInt(argv.number)
+        // const packageMap = findPackages(PATH_TARGET_PACKAGE_DIR)
+
+        // // Warn if package number already exists
+        // if (packageMap[numberString]) {
+        //     log.warn(`Package with number ${argv.numer} already exists: '${packageMap[numberInt]}'`)
+        //     // TODO
+        // }
 
 
         console.log(`Creating new package ${argv.number}-${argv.name}.xml`)

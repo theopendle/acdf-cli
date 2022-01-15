@@ -1,11 +1,11 @@
 const chalk = require("chalk")
 const errors = require("../errors")
 const fs = require('fs');
-const handlebars = require('handlebars');
 const log = require("loglevel");
-const path = require("path");
 
 const { target, template } = require("../paths");
+const files = require("../files");
+const paths = require("../paths");
 
 const PATH_PACKAGE_JSON = "package.json"
 
@@ -17,29 +17,6 @@ const PACKAGE_JSON = {
     devDependencies: {
         "@acdf/build": "^1.0.4"
     }
-}
-
-/**
- * Recursively reads all files in a directory into a flat list of paths.
- * 
- * @param {string} filepath 
- * @param {string[]} list 
- * @returns 
- */
-function readDir(filepath, list) {
-
-    if (!list) {
-        list = [];
-    }
-
-    if (fs.lstatSync(filepath).isDirectory()) {
-        fs.readdirSync(filepath).forEach((child) => readDir(path.resolve(filepath, child), list));
-
-    } else {
-        log.debug(`${filepath}: Partial added`)
-        list.push(filepath);
-    }
-    return list;
 }
 
 /**
@@ -63,43 +40,6 @@ function updatePackageJson(argv) {
     return argv;
 }
 
-function processTemplateFiles(argv) {
-    handlebars.registerHelper('lowerCase', string => string.toLowerCase());
-    handlebars.registerHelper('upperCase', string => string.toUpperCase());
-
-    readDir(template("init")).forEach(templateFilePath => {
-
-        const fileRelativePathTemplate = path.relative(template("init"), templateFilePath);
-        const fileRelativePath = handlebars.compile(fileRelativePathTemplate)(argv);
-        const targetFilepath = target(fileRelativePath);
-
-        log.info(`Generating file ${chalk.greenBright(fileRelativePath)}`);
-
-        if (fs.existsSync(targetFilepath)) {
-            if (!argv.force) {
-                throw new errors.CliError(`Cannot generate file '${fileRelativePath}' as this file already exists. ` +
-                    `Please run with flag ${chalk.blueBright("--force")} or ${chalk.blueBright("-f")} to overrite existing files.`)
-            }
-        }
-
-        log.debug(`${templateFilePath}: Reading`);
-        const content = fs.readFileSync(templateFilePath).toString();
-
-        log.debug(`${templateFilePath}: Compiling`);
-        const compiledContent = handlebars.compile(content)(argv);
-
-        log.debug(`${templateFilePath}: Writing`);
-
-        // Write directory if required
-        const targetDirpath = path.dirname(targetFilepath);
-        if (!fs.existsSync(targetFilepath)) {
-            fs.mkdirSync(targetDirpath, { recursive: true })
-        }
-
-        fs.writeFileSync(targetFilepath, compiledContent);
-    })
-}
-
 module.exports = {
     updatePackageJson: updatePackageJson,
     processTemplateFiles: processTemplateFiles,
@@ -107,7 +47,7 @@ module.exports = {
 
     run: (argv) => {
         argv = updatePackageJson(argv);
-        processTemplateFiles(argv);
-        log.info(`Initialization complete! You should run ${chalk.greenBright("npm i")}.`)
+        files.writeTemplate(paths.template("init"), "", paths.target(""), argv);
+        log.info(`\nInitialization complete! You should run ${chalk.greenBright("npm i")}.`)
     }
 }
