@@ -106,6 +106,11 @@ function readArgs() {
             type: 'boolean',
             description: 'Run with verbose logging'
         })
+        .option('force', {
+            alias: 'f',
+            type: 'boolean',
+            description: 'Overwrite existing files'
+        })
         .help("h")
         .demandCommand()
         .parserConfiguration({

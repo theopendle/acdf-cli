@@ -45,7 +45,12 @@ module.exports = {
     PACKAGE_JSON: PACKAGE_JSON,
 
     run: (argv) => {
+
+        // For a clean initialization, forcing is required
+        argv.force = true
+
         argv = updatePackageJson(argv);
+
         files.writeTemplate(paths.template("init"), "", paths.target(""), argv);
         log.info(`\nInitialization complete! You should run ${chalk.greenBright("npm i")}.`)
     }

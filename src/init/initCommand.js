@@ -27,14 +27,6 @@ module.exports = {
                 promptType: "input",
                 default: "9343",
                 validate: (input) => /\d{4}/.test(input.match(input)) || "This should be a 4-digit number"
-            },
-            {
-                name: "force",
-                alias: "f",
-                promptMessage: "Overwrite existing files",
-                promptType: "confirm",
-                dataType: "boolean",
-                default: false
             }
         ]
     }
