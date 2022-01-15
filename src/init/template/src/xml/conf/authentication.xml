@@ -1,3 +1,0 @@
-<authentication>
-    <xtk internalPassword="\{{{ internalPasswordEncrypted }}}" />
-</authentication>

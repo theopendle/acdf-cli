@@ -1,0 +1,3 @@
+<proxyConfig>
+    <proxyHTTP address="\{{ proxyAddress }}" login="\{{ proxyUser }}" password="\{{ proxyPassword }}" port="\{{ proxyPort }}" />
+</proxyConfig>

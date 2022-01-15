@@ -1,11 +1,6 @@
 <?xml version='1.0' ?>
 <serverConf>
     <shared>
-
-        \{{> xml/conf/authentication.xml }}
-        
-        <proxyConfig>
-            <proxyHTTP address="\{{ proxyAddress }}" login="\{{ proxyUser }}" password="\{{ proxyPassword }}" port="3128" />
-        </proxyConfig>
+        \{{> xml/conf/proxy.xml }}
     </shared>
 </serverConf>

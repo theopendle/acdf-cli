@@ -1,6 +1,6 @@
 <?xml version='1.0' ?>
 <serverConf>
     <shared>
-        \{{> xml/conf/authentication.xml }}
+        \{{> xml/conf/proxy.xml }}
     </shared>
 </serverConf>

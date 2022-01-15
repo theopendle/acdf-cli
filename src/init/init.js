@@ -73,7 +73,7 @@ function processTemplateFiles(argv) {
         const fileRelativePath = handlebars.compile(fileRelativePathTemplate)(argv);
         const targetFilepath = target(fileRelativePath);
 
-        log.info(`Generating file ${fileRelativePath}`);
+        log.info(`Generating file ${chalk.greenBright(fileRelativePath)}`);
 
         if (fs.existsSync(targetFilepath)) {
             if (!argv.force) {
@@ -108,5 +108,6 @@ module.exports = {
     run: (argv) => {
         argv = updatePackageJson(argv);
         processTemplateFiles(argv);
+        log.info(`Initialization complete! You should run ${chalk.greenBright("npm i")}.`)
     }
 }

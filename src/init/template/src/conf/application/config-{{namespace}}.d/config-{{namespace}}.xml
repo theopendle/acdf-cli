@@ -1,6 +1,8 @@
 <?xml version='1.0' ?>
 <serverConf>
-    \{{> xml/conf/inMail.xml }}
-    \{{> xml/conf/mta.xml }}
+    <inMail autoStart="true" />
+    <mta autoStart="true" />
+
     \{{> xml/conf/web.xml }}
+    
 </serverConf>

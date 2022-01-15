@@ -1,4 +1,7 @@
 <?xml version='1.0' ?>
 <serverConf>
-    \{{> xml/conf/tracking.xml }}
+    <tracking autoStart="true" />
+
+    \{{> xml/conf/web.xml }}
+
 </serverConf>
