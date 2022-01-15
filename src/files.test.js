@@ -1,6 +1,7 @@
 
 const fs = require('fs');
-const handlebars = require('handlebars');
+
+const { handlebars } = require('./handlebars');
 const mock = require('mock-fs');
 const files = require("./files");
 const paths = require("./paths");
@@ -23,7 +24,7 @@ function runWriteTemplateTest(templateDir, targetDir, expectedPaths, argv) {
         expectedPath = paths.target(expectedPath)
         expect(fs.existsSync(expectedPath)).toBe(true);
         expect(fs.readFileSync(expectedPath).toString()).toBe(EXPECTED_CONTENT);
-    })   
+    })
 }
 
 describe('Writing files', () => {

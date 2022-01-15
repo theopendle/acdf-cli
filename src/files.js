@@ -1,6 +1,7 @@
 const chalk = require("chalk")
 const fs = require('fs');
-const handlebars = require('handlebars');
+
+const { handlebars } = require('./handlebars');
 const log = require("loglevel");
 const path = require('path');
 const errors = require("./errors");
@@ -78,8 +79,6 @@ module.exports = {
     writeTemplateFile: writeTemplateFile,
 
     writeTemplate: function (templateDir, templatePath, targetDir, argv) {
-        handlebars.registerHelper('lowerCase', string => string.toLowerCase());
-        handlebars.registerHelper('upperCase', string => string.toUpperCase());
         writeTemplate(templateDir, templatePath, targetDir, argv);
     }
 }

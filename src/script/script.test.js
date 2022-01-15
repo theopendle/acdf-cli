@@ -1,12 +1,12 @@
 
-const packages = require("./package");
+const script = require("./script");
 const fs = require('fs');
 
 const handlebars = require('../handlebars');
 const mock = require('mock-fs');
 
 function runTest(relativeFilePath) {
-    packages.new({ filepath: relativeFilePath, namespace: "test" })
+    script.new({ filepath: relativeFilePath, namespace: "test" })
 
     const expectedContent = "Test: test"
     const expectedPath = `target/src/packages/${relativeFilePath}`;

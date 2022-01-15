@@ -6,6 +6,7 @@ const { hideBin } = require('yargs/helpers');
 const log = require('loglevel');
 const initCommand = require("./init/initCommand");
 const packageCommand = require("./package/packageCommand");
+const scriptCommand = require("./script/scriptCommand");
 const chalk = require("chalk");
 const { reorder } = require("./package/package");
 
@@ -59,7 +60,7 @@ function provideCommand(command) {
                     // Prompt if we have arg, but it is invalid
                     if (!!input.validate) {
                         const invalid = input.validate(argv[input.name]) != true
-                        if(invalid) log.warn(`Value --${input.name} ${argv[input.name]} is invalid.`)
+                        if(invalid) log.warn(`Argument --${input.name} ${argv[input.name]} is invalid.`)
                         return invalid
                     }
 
@@ -71,6 +72,7 @@ function provideCommand(command) {
                     message: input.promptMessage,
                     default: input.default,
                     type: input.promptType,
+                    choices: input.promptChoices,
                     validate: input.validate
                 }))
 
@@ -94,6 +96,10 @@ function readArgs() {
         .command("package", "manipulate packages", (yargs) => {
             yargs
                 .command(provideCommand(packageCommand.new))
+        })
+        .command("script", "manipulate scripts", (yargs) => {
+            yargs
+                .command(provideCommand(scriptCommand.new))
         })
         .option('verbose', {
             alias: 'v',
