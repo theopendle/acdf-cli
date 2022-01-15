@@ -30,7 +30,7 @@ function writeTemplateFile(templateDir, templatePath, targetDir, newFilename, ar
     if (fs.existsSync(targetFilePath)) {
         if (!argv.force) {
             throw new errors.CliError(`Cannot generate file '${targetFilePath}' as this file already exists. ` +
-                `Please run with flag ${chalk.blueBright("--force")} or ${chalk.blueBright("-f")} to overrite existing files.`)
+                `Please run with flag ${chalk.greenBright("--force")} or ${chalk.greenBright("-f")} to overrite existing files.`)
         }
     }
     log.info(`Generating file ${chalk.greenBright(targetFilePath)}`);

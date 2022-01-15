@@ -31,7 +31,7 @@ describe('Creating a new package', () => {
                 }
             }
         });
-        jest.spyOn(process, 'cwd').mockReturnValue("target/src/packages");
+        jest.spyOn(process, 'cwd').mockReturnValue("target/src");
     });
 
     it("it should create a new package at level 1", () => {

@@ -9,7 +9,7 @@ const paths = require("../paths");
 module.exports = {
     new: (argv) => {
 
-        const targetFilepath = paths.target(argv.filepath);
+        const targetFilepath = paths.target("packages", argv.filepath);
         const filename = path.basename(argv.filepath);
         const targetDir = path.dirname(targetFilepath);
 
