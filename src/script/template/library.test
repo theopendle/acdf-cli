@@ -1,4 +1,4 @@
-require("@acdf/test").unit.library(global, "campaignUtils.library.js");
+require("@acdf/test").unit.library(global, "{{ name }}.library.js");
 
 describe("Describe this test suite", () => {
     

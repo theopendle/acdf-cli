@@ -24,7 +24,7 @@ module.exports = {
 
         const filename = `${argv.name}.${argv.type}.js`;
         const testFilename = `${argv.name}.test.js`;
-        const targetDir = paths.target("js", argv.directory);
+        const targetDir = paths.target("src/js", argv.directory);
 
         if (!fs.existsSync(targetDir)) {
             log.info(`Creating folder: ${chalk.greenBright(targetDir)}`)

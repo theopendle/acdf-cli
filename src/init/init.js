@@ -15,7 +15,8 @@ const PACKAGE_JSON = {
         "test": "gulp test && jest"
     },
     devDependencies: {
-        "@acdf/build": "^1.0.4"
+        "@acdf/build": "^1.0.8",
+        "@acdf/test": "^1.0.2"
     }
 }
 
