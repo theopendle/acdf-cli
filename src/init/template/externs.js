@@ -22,12 +22,13 @@
  */
 
 // These methods have no implementation
-function logInfo(message) { }
-function logVerbose(message) { }
-function logWarning(message) { }
+global.logInfo = function (message) { }
+global.logVerbose = function (message) { }
+global.logWarning = function (message) { }
+global.loadLibrary = function (name) { }
 
 // This method will throw an error, which is useful in our tests
-function logError(message) {
+global.logError = function (message) {
     throw message;
 }
 

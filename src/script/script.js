@@ -2,6 +2,7 @@ const chalk = require("chalk");
 const fs = require('fs');
 const log = require('loglevel');
 const path = require('path');
+const { CliError } = require("../errors");
 
 const files = require("../files");
 const paths = require("../paths");
@@ -19,6 +20,11 @@ function readConfig() {
 
 module.exports = {
     new: (argv) => {
+
+        // TODO: Implement typology scripts
+        if (argv.type === "typology") {
+            throw new CliError("Sorry, this feature is not implemented yet");
+        }
 
         argv = { ...argv, ...(readConfig()) };
 

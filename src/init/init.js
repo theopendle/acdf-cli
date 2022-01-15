@@ -55,9 +55,6 @@ module.exports = {
 
         files.writeTemplate(paths.template("init"), "", paths.target(""), argv);
 
-        // Generate hello world demo script
-        script.new({ ...argv, name: "helloWorld", type: "library", directory: "helloWorld" })
-
         log.info(`\nInitialization complete! You should run ${chalk.greenBright("npm i")}.`)
     }
 }

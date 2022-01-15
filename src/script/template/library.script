@@ -1,23 +1,22 @@
 (() => {
 
     /**
-     * Prints and returns a greeting from the person with the provided name.
+     * Prints and returns a message
      * 
      * Usage:
      * ```js
-     * const message = helloWorld("ACDF"); // Logs "Hello world from ACDF"
+     * const message = {{ name }}("ACDF"); // Logs "Hello world from ACDF"
      * logInfo(message); // Logs the same again
      * ```
      * 
-     * @param {string} name your name
-     * @returns a greeting 
+     * @param {string} message the message
+     * @returns a message 
      */
-    function helloWorld(name) {
-        const message = `Hello world from ${name}`;
+    function {{ name }}(message) {
         logInfo(message)
         return message;
     }
 
-    /* Assign the function to the ING namespace */
-    {{ upperCase namespace }}.helloWorld = helloWorld;
+    /* Assign the function to the {{ upperCase namespace }} namespace */
+    {{ upperCase namespace }}.{{ name }} = {{ name }};
 })();

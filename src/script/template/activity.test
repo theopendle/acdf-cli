@@ -1,0 +1,23 @@
+require("@acdf/test").unit.activity(global);
+
+const SCRIPT_PATH = "./{{ name }}.activity.js";
+
+describe("Describe this activity test suite", () => {
+    beforeEach(() => {
+        jest.resetModules();
+    });
+
+    test("it should pass", () => {
+        /**
+         * Prepare your test here.
+         */
+
+        /* Execute your activity like so: */
+        require(SCRIPT_PATH);
+
+        /**
+         * Write your assertions here.
+         */
+        expect(true).toBe(true)
+    });
+});

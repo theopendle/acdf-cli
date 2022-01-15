@@ -1,0 +1,5 @@
+((instanceVars) => {
+
+    /** Place your JS logic in here */
+    
+})(instance.vars);
