@@ -108,31 +108,6 @@ function readArgs() {
         .parse()
 }
 
-// const cmd2 = {
-//     command: 'cmd2',
-//     desc: 'command 2',
-//     builder: (yargs) => yargs
-//       .option('cmd2-option', {
-//         desc: 'command 2 option 1',
-//         type: 'string'
-//       }),
-//     handler: (argv) => {
-//       if (!argv._handled) console.log('cmd2 handler:', argv)
-//       argv._handled = true
-//     }
-//   }
-
-// function readArgs() {
-//     yargs(hideBin(process.argv))
-//         .command(cmd2)
-//         .help("h")
-//         .demandCommand()
-//         .parserConfiguration({
-//             "parse-numbers": false,
-//         })
-//         .parse()
-// }
-
 module.exports = {
     readArgs: readArgs
 }

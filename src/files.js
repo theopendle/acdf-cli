@@ -4,6 +4,7 @@ const handlebars = require('handlebars');
 const log = require("loglevel");
 const path = require('path');
 const errors = require("./errors");
+const paths = require("./paths");
 
 /**
  * Reads, compiles and writes the contents of a template file to a target directory.
@@ -13,6 +14,7 @@ const errors = require("./errors");
  * @param {string} targetDir the root directory where the template should be written
  * @param {string} newFilename the name of the file to write (null to keep template name)
  * @param {object} argv object containing templating properties
+ * @returns {string} the absolute path of the file created
  */
 function writeTemplateFile(templateDir, templatePath, targetDir, newFilename, argv) {
 
@@ -22,7 +24,7 @@ function writeTemplateFile(templateDir, templatePath, targetDir, newFilename, ar
     const filename = newFilename
         ? newFilename
         : path.basename(templatePath);
-    const targetFilePath = handlebars.compile(path.resolve(path.dirname(path.resolve(targetDir, templatePath)), filename))(argv)
+    const targetFilePath = handlebars.compile(path.resolve(path.dirname(paths.target(targetDir, templatePath)), filename))(argv)
 
     // If file exists and force is false, abort
     if (fs.existsSync(targetFilePath)) {
@@ -41,6 +43,8 @@ function writeTemplateFile(templateDir, templatePath, targetDir, newFilename, ar
 
     log.debug(`${targetFilePath}: Writing`);
     fs.writeFileSync(targetFilePath, compiledContent);
+
+    return targetFilePath;
 }
 
 /**
@@ -61,7 +65,7 @@ function writeTemplate(templateDir, templatePath, targetDir, argv) {
     }
 
     // If directory, write directory and recurse on children
-    const targetDirPath = handlebars.compile(path.resolve(targetDir, templatePath))(argv);
+    const targetDirPath = handlebars.compile(paths.target(targetDir, templatePath))(argv);
     if (!fs.existsSync(targetDirPath)) {
         fs.mkdirSync(targetDirPath);
     }

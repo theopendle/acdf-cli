@@ -14,7 +14,7 @@ function runTest(mockPackageJson) {
 }
 
 describe('Initialization', () => {
-    beforeAll(() => {
+    beforeEach(() => {
         mock({});
     });
 
@@ -58,7 +58,7 @@ describe('Initialization', () => {
         expect(actual.scripts).toEqual({ ...packageObj.scripts, ...init.PACKAGE_JSON.scripts });
     })
 
-    afterAll(() => {
+    afterEach(() => {
         mock.restore();
     });
 });
