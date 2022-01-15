@@ -3,9 +3,10 @@ const errors = require("../errors")
 const fs = require('fs');
 const log = require("loglevel");
 
-const { target, template } = require("../paths");
+const { target } = require("../paths");
 const files = require("../files");
 const paths = require("../paths");
+const script = require("../script/script");
 
 const PATH_PACKAGE_JSON = "package.json"
 
@@ -53,6 +54,10 @@ module.exports = {
         argv = updatePackageJson(argv);
 
         files.writeTemplate(paths.template("init"), "", paths.target(""), argv);
+
+        // Generate hello world demo script
+        script.new({ ...argv, name: "helloWorld", type: "library", directory: "helloWorld" })
+
         log.info(`\nInitialization complete! You should run ${chalk.greenBright("npm i")}.`)
     }
 }
