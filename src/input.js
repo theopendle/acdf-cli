@@ -94,7 +94,6 @@ function readArgs() {
         .command("package", "manipulate packages", (yargs) => {
             yargs
                 .command(provideCommand(packageCommand.new))
-                .command(provideCommand(packageCommand.reorder))
         })
         .option('verbose', {
             alias: 'v',

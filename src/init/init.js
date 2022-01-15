@@ -42,7 +42,6 @@ function updatePackageJson(argv) {
 
 module.exports = {
     updatePackageJson: updatePackageJson,
-    processTemplateFiles: processTemplateFiles,
     PACKAGE_JSON: PACKAGE_JSON,
 
     run: (argv) => {

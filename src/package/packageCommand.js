@@ -11,7 +11,7 @@ module.exports = {
         inputs: [
             {
                 name: "filepath",
-                promptMessage: "Filepath",
+                promptMessage: "Filepath relative to 'packages' folder",
                 promptType: "input",
                 default: "common/000.newPackage.xml",
                 validate: (input) => /./.test(input.match(input)) || "You shouldn't leave this field empty!"

@@ -3,7 +3,7 @@ const fs = require('fs');
 const handlebars = require('handlebars');
 const log = require("loglevel");
 const path = require('path');
-const paths = require('./paths');
+const errors = require("./errors");
 
 /**
  * Reads, compiles and writes the contents of a template file to a target directory.
@@ -11,21 +11,27 @@ const paths = require('./paths');
  * @param {string} templateDir the root directory holding the templates to write
  * @param {string} templatePath the path of the template (dir or file) relative to the templateDir
  * @param {string} targetDir the root directory where the template should be written
+ * @param {string} newFilename the name of the file to write (null to keep template name)
  * @param {object} argv object containing templating properties
  */
-function writeTemplateFile(templateDir, templatePath, targetDir, argv) {
-    log.info(`Generating file ${chalk.greenBright(templatePath)}`);
+function writeTemplateFile(templateDir, templatePath, targetDir, newFilename, argv) {
 
     const templateFilePath = path.resolve(templateDir, templatePath)
-    const targetFilePath = path.resolve(targetDir, templatePath)
+
+    // Use a different target filename if provided
+    const filename = newFilename
+        ? newFilename
+        : path.basename(templatePath);
+    const targetFilePath = handlebars.compile(path.resolve(path.dirname(path.resolve(targetDir, templatePath)), filename))(argv)
 
     // If file exists and force is false, abort
     if (fs.existsSync(targetFilePath)) {
         if (!argv.force) {
-            throw new errors.CliError(`Cannot generate file '${fileRelativePath}' as this file already exists. ` +
+            throw new errors.CliError(`Cannot generate file '${targetFilePath}' as this file already exists. ` +
                 `Please run with flag ${chalk.blueBright("--force")} or ${chalk.blueBright("-f")} to overrite existing files.`)
         }
     }
+    log.info(`Generating file ${chalk.greenBright(targetFilePath)}`);
 
     log.debug(`${targetFilePath}: Reading`);
     const content = fs.readFileSync(templateFilePath).toString();
@@ -50,13 +56,13 @@ function writeTemplate(templateDir, templatePath, targetDir, argv) {
 
     // If file, write
     if (fs.statSync(templateDirPath).isFile()) {
-        writeTemplateFile(templateDir, templatePath, targetDir, argv)
+        writeTemplateFile(templateDir, templatePath, targetDir, null, argv)
         return;
     }
 
     // If directory, write directory and recurse on children
-    const targetDirPath = path.resolve(targetDir, templatePath);
-    if(!fs.existsSync(targetDirPath)){
+    const targetDirPath = handlebars.compile(path.resolve(targetDir, templatePath))(argv);
+    if (!fs.existsSync(targetDirPath)) {
         fs.mkdirSync(targetDirPath);
     }
     fs.readdirSync(templateDirPath)
@@ -65,6 +71,8 @@ function writeTemplate(templateDir, templatePath, targetDir, argv) {
 }
 
 module.exports = {
+    writeTemplateFile: writeTemplateFile,
+
     writeTemplate: function (templateDir, templatePath, targetDir, argv) {
         handlebars.registerHelper('lowerCase', string => string.toLowerCase());
         handlebars.registerHelper('upperCase', string => string.toUpperCase());
