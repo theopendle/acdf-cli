@@ -5,6 +5,7 @@ const SCRIPT_PATH = "./{{ name }}.activity.js";
 describe("Describe this activity test suite", () => {
     beforeEach(() => {
         jest.resetModules();
+        global.instance = { vars: {} }
     });
 
     test("it should pass", () => {
