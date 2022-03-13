@@ -1,6 +1,4 @@
-require("@acdf/test").unit.activity(global);
-
-const SCRIPT_PATH = "./helloWorld.activity.js";
+const SCRIPT_PATH = require("@acdf/test").unit.activity(global, "helloWorld.activity.js");
 
 describe("Describe this activity test suite", () => {
     beforeEach(() => {
